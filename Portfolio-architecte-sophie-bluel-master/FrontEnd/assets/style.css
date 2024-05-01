@@ -349,7 +349,7 @@ footer nav ul {
 .modale-wrapper h2 {
 	display: flex;
 	justify-content: center;
-	margin: 20px 0 50px 0;
+	margin: 20px 0 15px 0;
 }
 
 .js-modale-btn {
@@ -361,19 +361,26 @@ footer nav ul {
 	color: white;
 	background-color: #1D6154;
 	border: 2px solid #1D6154;
-	margin: 0 auto 30px auto;
+	margin: 30px auto;
 	height: 50px;
 	width: 250px;
 	border-radius: 60px;
 }
 
+.modale-div-add-btn {
+	border-top: 1px solid black;
+	margin: 40px auto 0px auto;
+	width: 80%;
+}
+
 .modale-gallery {
 	display: flex;
-	justify-content: space-between;
+	align-content: flex-start;
+	justify-content: center;
 	flex-wrap: wrap;
-	border-bottom: 1px solid black;
 	width: 90%;
 	margin: 40px auto;
+	height: 400px;
 }
 
 .gallery-item-modale {
@@ -489,7 +496,6 @@ footer nav ul {
 	display: flex;
 	flex-direction: column;
 	width: 500px;
-	border-bottom: 1px solid black;
 }
 
 .form-group-id select {
@@ -497,10 +503,42 @@ footer nav ul {
 	font-size: 1.2em;
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+	margin-bottom: 39px;
 }
 
 .form-group-id label {
 	margin: 3em 0 1em 0;
+}
+
+#modale-validate-add-btn {
+	font-family: "Syne";
+	font-weight: 700;
+	color: white;
+	background-color: #1D6154;
+	border: 2px solid #1D6154;
+	margin: 30px auto;
+	height: 54px;
+	width: 255px;
+	border-radius: 60px;
+	cursor: pointer;
+}
+
+#modale-validate-add-btn:hover {
+	color: #B1663C;
+}
+
+.add-image {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.add-image-preview {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 }
 
 /*.modale-projet-form input[type=submit] {*/
@@ -517,12 +555,3 @@ footer nav ul {
 /*	transition: all 0.5s ease;*/
 /*}*/
 
-/*.modale-projet-form::after {*/
-/*	content: " ";*/
-/*	border-top: 1px solid black;*/
-/*	height: 1px;*/
-/*	width: 70%;*/
-/*	margin: 40px auto;*/
-/*	position: absolute;*/
-/*	bottom: 120px;*/
-/*}*/

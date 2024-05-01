@@ -1,13 +1,22 @@
-async function main() {
+window.addEventListener("load", (event) => {
     changeLoginBtn();
-    let projects = await getProjects();
-    generateProjects(projects, "null");
-    if (!isConnected()) {
-        let categories = await getCategories();
-
-        generateCategoriesFilters(categories);
-        filterCategories(projects, categories);
-    }
-}
-
-main();
+    getProjects()
+        .then(projects => {
+            generateProjects(projects, "null");
+            if (!isConnected()) {
+                getCategories().then(categories => {
+                    generateCategoriesFilters(categories);
+                    filterCategories(projects, categories);
+                }).catch(error => {
+                    console.error("Failed to load categories:", error);
+                });
+            }
+        })
+        .catch(error => {
+            let p = createParagraph(document.querySelector('.gallery'));
+            p.classList.add("error");
+            p.innerHTML = "Une erreur est survenue lors de la récupération des projets<br><br>" +
+                "Une tentative de reconnexion automatique auras lieu dans une minute<br><br><br><br>" +
+                "Si le problème persiste, veuillez contacter l'administrateur du site";
+        });
+});

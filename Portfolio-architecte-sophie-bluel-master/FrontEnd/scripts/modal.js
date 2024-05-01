@@ -35,22 +35,33 @@ async function displayModale(modale) {
         createOption(document.querySelector(".form-group-id select"), category);
     });
 
-    let photoAddDisplay = document.querySelector(".form-group-photo");
-    // console.log(photoAddDisplay)
-    // // document.querySelector(".form-group-photo").appendChild(photoAddDisplay);
-    let photoAddDisplayMod = document.querySelector(".form-group-photo");
+    document.querySelector(".modale-projet-form").reset();
+    document.querySelector('.add-image-preview').style.display = 'none';
+    document.querySelector('.add-image').style.display = 'flex';
 
     document.querySelector(".js-image").addEventListener("change", () => {
         let newPhoto = document.querySelector(".js-image").files[0];
 
         if (newPhoto != "") {
+            document.querySelector('.add-image-preview').innerHTML = "";
             let img = document.createElement("img");
             img.src = "./assets/images/"+document.querySelector(".js-image").files[0].name;
             img.classList.add("form-group-photo-img");
-            photoAddDisplayMod.innerHTML = "";
-            photoAddDisplayMod.appendChild(img);
+
+            document.querySelector('.add-image-preview').appendChild(img);
+            document.querySelector('.add-image-preview').style.display = 'flex';
+            document.querySelector('.add-image').style.display = 'none';
         }
     });
+
+    // Déblocage du bouton d'ajout
+    // document.querySelector(".modale-projet-form").addEventListener("change", () => {
+    //     if (document.querySelector(".js-image").files[0] == "" &&
+    //         document.querySelector(".js-title").value == "" &&
+    //         document.querySelector(".js-categoryId").value == "") {
+    //         document.getElementById("modale-validate-add-btn").disabled = false
+    //     }
+    // });
 }
 
 // Affichage de la gallerie dans la modale
@@ -61,11 +72,12 @@ async function createProjectModal() {
     projects.forEach((project) => {
         let div = createDiv(document.querySelector('.modale-gallery'));
         div.classList.add('gallery-item-modale');
+        div.classList.add('modale-gallery-work_' + project.id);
 
         let img = createImage(div, project);
 
         let p = createParagraph(div);
-        p.classList.add("work_" + project.id, "js-delete-work");
+        p.classList.add("js-delete-work");
 
         createIcon(p, ["fa-solid", "fa-trash-can"]);
 
@@ -149,11 +161,10 @@ async function addWork(event, add) {
 
 // Rafraichir les projets (suite à une suppression ou un ajout)
 async function refreshProjet(id = 0, add = "") {
-    createProjectModal();
-
     if (id != 0) {
         let projetToDelete = document.querySelector(".work_" + id);
         projetToDelete.style.display = "none";
+        document.querySelector(".modale-gallery-work_" + id).style.display = "none";
     }
 
     if (add == "add") {

@@ -7,11 +7,6 @@ async function getProjects() {
         return datas;
     }
     catch {
-        let p = createParagraph(document.querySelector('.gallery'));
-        p.classList.add("error");
-        p.innerHTML = "Une erreur est survenue lors de la récupération des projets<br><br>" +
-            "Une tentative de reconnexion automatique auras lieu dans une minute<br><br><br><br>" +
-            "Si le problème persiste, veuillez contacter l'administrateur du site";
         await new Promise(resolve => setTimeout(resolve, 60000));
     }
 }
@@ -25,8 +20,6 @@ async function getCategories () {
         return categories;
     }
     catch {
-        let p = createParagraph(document.querySelector('.filters'));
-        p.classList.add("error");
         await new Promise(resolve => setTimeout(resolve, 60000));
     }
 }
@@ -139,15 +132,8 @@ function addEditionRod() {
     div.classList.add("admin-rod");
     let div2 = createDiv(div);
     let icon = createIcon(div2, ["fa-solid", "fa-pen-to-square"]);
-    // icon.innerHTML = "Mode édition"
-    // icon.classList.add("edit-mode");
-
-    // let p = createParagraph(div2);
-    // p.innerText = " Mode édition";
-    // div2.innerHTML =  icon + " Mode édition";
     let link = createLink(div2, "#modale");
     link.innerText = " Modifier";
-
 
     div2.addEventListener('click', () => {
         displayModale(document.getElementById("modale"));
@@ -165,7 +151,7 @@ function isConnected() {
     }
 }
 
-// Fonction de deconnection
+// Fonction de deconnexion
 function logout() {
     localStorage.removeItem("userId");
     localStorage.removeItem("token");
