@@ -42,13 +42,32 @@ function generateProjects(datas, categorie) {
 }
 
 // Creation des images
-function createProjects(data) {
-    let figure = createFigure(document.querySelector(".gallery"));
-    figure.classList.add("work_" + data.id);
-    let image = createImage(figure, data);
+function createProjects(data, modale = false) {
+    if (!modale) {
+        let figure = createFigure(document.querySelector(".gallery"));
+        figure.classList.add("work_" + data.id);
+        let image = createImage(figure, data);
 
-    let figCaption = createFigCaption(figure);
-    figCaption.innerHTML = data.title;
+        let figCaption = createFigCaption(figure);
+        figCaption.innerHTML = data.title;
+    }
+
+    if (modale) {
+        let div = createDiv(document.querySelector('.modale-gallery'));
+        div.classList.add('gallery-item-modale');
+        div.classList.add('modale-gallery-work_' + data.id);
+
+        let img = createImage(div, data);
+
+        let p = createParagraph(div);
+        p.classList.add("js-delete-work");
+
+        createIcon(p, ["fa-solid", "fa-trash-can"]);
+
+        p.addEventListener("click", () => {
+            deleteProjectModal(data.id);
+        });
+    }
 }
 
 // Génération des filtres catégories

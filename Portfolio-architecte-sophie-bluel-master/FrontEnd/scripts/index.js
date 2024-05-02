@@ -3,14 +3,16 @@ window.addEventListener("load", (event) => {
     getProjects()
         .then(projects => {
             generateProjects(projects, "null");
-            if (!isConnected()) {
-                getCategories().then(categories => {
+            createProjectModal(projects);
+            getCategories().then(categories => {
+                createModaleSelect(categories);
+                if (!isConnected()) {
                     generateCategoriesFilters(categories);
                     filterCategories(projects, categories);
-                }).catch(error => {
-                    console.error("Failed to load categories:", error);
-                });
-            }
+                }
+            }).catch(error => {
+                console.error("Failed to load categories:", error);
+            });
         })
         .catch(error => {
             let p = createParagraph(document.querySelector('.gallery'));

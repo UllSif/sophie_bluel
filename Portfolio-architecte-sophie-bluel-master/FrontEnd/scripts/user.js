@@ -12,7 +12,7 @@ function getUser(user) {
     let loginMdpError = document.querySelector(".login-password-error");
 
     // Vérification adresse mail
-    if (!user.email.match(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]{2,}\.[a-z]{2,4}$/g)) {
+    if (!user.email.includes('@')) {
         let p = createParagraph(loginEmailError);
         p.innerHTML = "Veuillez entrer une addresse mail valide";
         return;

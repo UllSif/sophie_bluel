@@ -4,12 +4,12 @@ async function displayModale(modale) {
     modale.style.alignItems = "center";
     modale.style.justifyContent = "center";
 
-    createProjectModal();
-
     // Clique sur la croix pour fermer
-    let closeBtn = document.querySelector('.js-modale-close i');
-    closeBtn.addEventListener('click', () => {
-        closeModale(modale);
+    let closeBtn = document.querySelectorAll('.js-modale-close');
+    closeBtn.forEach((button) => {
+        button.addEventListener('click', () => {
+            closeModale(modale);
+        });
     });
 
     // Clique en dehors de la modale
@@ -30,10 +30,6 @@ async function displayModale(modale) {
     });
 
     // Génération de la liste des catégories dans le formulaire d'ajout
-    let categories = await getCategories();
-    categories.forEach((category) => {
-        createOption(document.querySelector(".form-group-id select"), category);
-    });
 
     document.querySelector(".modale-projet-form").reset();
     document.querySelector('.add-image-preview').style.display = 'none';
@@ -53,37 +49,20 @@ async function displayModale(modale) {
             document.querySelector('.add-image').style.display = 'none';
         }
     });
+}
 
-    // Déblocage du bouton d'ajout
-    // document.querySelector(".modale-projet-form").addEventListener("change", () => {
-    //     if (document.querySelector(".js-image").files[0] == "" &&
-    //         document.querySelector(".js-title").value == "" &&
-    //         document.querySelector(".js-categoryId").value == "") {
-    //         document.getElementById("modale-validate-add-btn").disabled = false
-    //     }
-    // });
+function createModaleSelect (categories) {
+    categories.forEach((category) => {
+        createOption(document.querySelector(".form-group-id select"), category);
+    });
 }
 
 // Affichage de la gallerie dans la modale
-async function createProjectModal() {
+async function createProjectModal(projects) {
     document.querySelector('.modale-gallery').innerHTML = "";
-    let projects = await getProjects();
 
     projects.forEach((project) => {
-        let div = createDiv(document.querySelector('.modale-gallery'));
-        div.classList.add('gallery-item-modale');
-        div.classList.add('modale-gallery-work_' + project.id);
-
-        let img = createImage(div, project);
-
-        let p = createParagraph(div);
-        p.classList.add("js-delete-work");
-
-        createIcon(p, ["fa-solid", "fa-trash-can"]);
-
-        p.addEventListener("click", () => {
-            deleteProjectModal(project.id);
-        });
+        createProjects(project, true);
     });
 }
 
@@ -95,7 +74,6 @@ async function deleteProjectModal(id) {
         headers: {Authorization: `Bearer ` + token}
     })
         .then(response => {
-            console.log(response);
             if (response.status === 204) {
                 console.log("Suppression du projet numero " + id);
                 refreshProjet(id);
@@ -110,7 +88,7 @@ async function deleteProjectModal(id) {
 }
 
 // Ajout d'un projet à la galerie
-async function addWork(event, add) {
+async function addWork(event) {
     // On empèche le rechargement de la page au clique sur le bouton du formulaire
     event.preventDefault();
 
@@ -140,8 +118,9 @@ async function addWork(event, add) {
             );
 
             if (response.status === 201) {
+                let data = await response.json();
                 alert("Projet ajouté avec succès");
-                refreshProjet(0, add);
+                refreshProjet(0, data);
                 document.querySelector(".modale-projet-form").reset();
                 closeModale(document.getElementById("modale"));
             } else if (response.status === 400) {
@@ -160,16 +139,16 @@ async function addWork(event, add) {
 
 
 // Rafraichir les projets (suite à une suppression ou un ajout)
-async function refreshProjet(id = 0, add = "") {
+function refreshProjet(id = 0, data = "") {
     if (id != 0) {
         let projetToDelete = document.querySelector(".work_" + id);
         projetToDelete.style.display = "none";
         document.querySelector(".modale-gallery-work_" + id).style.display = "none";
     }
 
-    if (add == "add") {
-        let projects = await getProjects();
-        generateProjects(projects, "null");
+    if (data !== "") {
+        createProjects(data);
+        createProjects(data, modale);
     }
 }
 
