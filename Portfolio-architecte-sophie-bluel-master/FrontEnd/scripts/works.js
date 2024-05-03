@@ -117,7 +117,7 @@ function filterCategories(projects) {
 function changeLoginBtn() {
     let btnLogin = document.getElementById("login");
     if (isConnected()) {
-        btnLogin.innerHTML = "logout";
+        btnLogin.innerText = "logout";
         btnLogin.addEventListener("click", () => {
             logout();
             window.location.href = "index.html";
@@ -159,19 +159,3 @@ function addEditionRod() {
     });
 }
 
-
-
-// Vérifier si un administrateur est connecté
-function isConnected() {
-    if (localStorage.getItem("userId")) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
-// Fonction de deconnexion
-function logout() {
-    localStorage.removeItem("userId");
-    localStorage.removeItem("token");
-}

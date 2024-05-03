@@ -35,7 +35,6 @@ function getUser(user) {
         })
             .then(response => response.json())
             .then(result => {
-                console.log(result)
                 if (result.error || result.message) {
                     let p = createParagraph(loginMdpError);
                     p.innerHTML = "La combinaison e-mail/mot de passe est incorrecte";

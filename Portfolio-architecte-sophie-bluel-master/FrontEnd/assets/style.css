@@ -230,6 +230,10 @@ footer nav ul {
 
 /* ### LOGIN ###*/
 
+#login {
+	cursor: pointer;
+}
+
 .login {
 	display: flex;
 	flex-direction: column;
@@ -540,18 +544,3 @@ footer nav ul {
 	justify-content: center;
 	align-items: center;
 }
-
-/*.modale-projet-form input[type=submit] {*/
-/*	font-family: "Syne";*/
-/*	font-weight: 700;*/
-/*	color: white;*/
-/*	background-color: #1D6154;*/
-/*	border: 2px solid #1D6154;*/
-/*	margin: 120px 0 30px 0;*/
-/*	height: 50px;*/
-/*	width: 250px;*/
-/*	text-align: center;*/
-/*	border-radius: 60px;*/
-/*	transition: all 0.5s ease;*/
-/*}*/
-
