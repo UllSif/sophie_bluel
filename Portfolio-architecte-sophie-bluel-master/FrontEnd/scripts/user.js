@@ -1,15 +1,13 @@
 function login() {
     let user = {
-        email: email.value,
-        password: password.value
+        email: document.getElementById("email").value,
+        password: document.getElementById("password").value
     }
 
-    getUser(user);
-}
-
-function getUser(user) {
     let loginEmailError = document.querySelector(".login-mail-error");
     let loginMdpError = document.querySelector(".login-password-error");
+    loginEmailError.innerHTML = "";
+    loginMdpError.innerHTML = "";
 
     // Vérification adresse mail
     if (!user.email.includes('@')) {
@@ -36,7 +34,9 @@ function getUser(user) {
             .then(response => response.json())
             .then(result => {
                 if (result.error || result.message) {
-                    let p = createParagraph(loginMdpError);
+                    let p = createParagraph(loginEmailError);
+                    p.innerHTML = "La combinaison e-mail/mot de passe est incorrecte";
+                    p = createParagraph(loginMdpError);
                     p.innerHTML = "La combinaison e-mail/mot de passe est incorrecte";
                 } else if (result.token) {
                     localStorage.setItem("userId", result.userId);
@@ -48,4 +48,19 @@ function getUser(user) {
                 console.log(error);
             });
     }
+}
+
+// Vérifier si un administrateur est connecté
+function isConnected() {
+    if (localStorage.getItem("userId")) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+// Fonction de deconnexion
+function logout() {
+    localStorage.removeItem("userId");
+    localStorage.removeItem("token");
 }

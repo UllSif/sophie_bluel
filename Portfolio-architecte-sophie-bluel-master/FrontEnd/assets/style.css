@@ -297,7 +297,6 @@ footer nav ul {
 .admin-rod div, .admin-rod a {
 	font-family: "Work Sans";
 	font-weight: 550;
-	/*background-color: white;*/
 	color: white;
 	border-radius: 60px;
 	padding: 5px 15px;
@@ -518,8 +517,8 @@ footer nav ul {
 	font-family: "Syne";
 	font-weight: 700;
 	color: white;
-	background-color: #1D6154;
-	border: 2px solid #1D6154;
+	background-color: grey;
+	border: 2px solid grey;
 	margin: 30px auto;
 	height: 54px;
 	width: 255px;

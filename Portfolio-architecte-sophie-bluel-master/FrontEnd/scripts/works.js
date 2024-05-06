@@ -142,7 +142,7 @@ function addModifierBtn() {
     });
 
     document.getElementById("modale-validate-add-btn").addEventListener('click', (e) => {
-        addWork(e, "add");
+        addWork(e);
     });
 }
 
